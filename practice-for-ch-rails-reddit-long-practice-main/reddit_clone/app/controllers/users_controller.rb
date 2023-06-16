@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_logged_in, :only[:destroy,:show,:index,:update,:edit]
-  before_action :require_logged_out, :only[:create,:new]
+  before_action :require_logged_in, only: [:destroy,:show,:index,:update,:edit]
+  before_action :require_logged_out, only: [:create,:new]
 
   def index
     @users = User.all
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user
+    if @user.save
       redirect_to user_url
     else
       render :new
